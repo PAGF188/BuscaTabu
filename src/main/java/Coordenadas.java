@@ -9,8 +9,8 @@ public class Coordenadas {
     double y;
 
     public Coordenadas(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.x = Math.toRadians(x);
+        this.y = Math.toRadians(y);
     }
 
     public double getX() {
