@@ -5,12 +5,13 @@ import java.util.HashMap;
  * @author Pablo García Fernández
  * @file Bsqueda.java
  * @objective - Se encarga de realizar la búsqueda tabú para el problema del viajante.
- *            - Muestra la mejor solución encontrada e información de la misma (coste, vector desplazamiento...)
+ *            -
  *
  */
 public class Busqueda {
     private HashMap<Integer,Coordenadas> costes;
-    private ArrayList<Integer> estado;    //mejor solucion
+    private ArrayList<Integer> mejor;     //mejor solucion
+    private ArrayList<Integer> estado;    //actual solucion
     private ArrayList<Integer> vecino;    //mejor vecino
 
     /**
@@ -22,6 +23,7 @@ public class Busqueda {
         this.costes = costes;
         this.estado = estadoInicial;
         vecino = (ArrayList<Integer>) estado.clone();
+        mejor = (ArrayList<Integer>) estado.clone();
 
     }
 
@@ -33,12 +35,18 @@ public class Busqueda {
         this.costes = costes;
         estado = this.generaEstadoAleatorio();
         vecino = (ArrayList<Integer>) estado.clone();
+        mejor = (ArrayList<Integer>) estado.clone();
+
     }
 
     public void buscar(){
 
         int iteracciones=1;
         ArrayList<Integer> aux;
+        ListaTabu listaTabu = new ListaTabu();
+        int i_intercambiada=0;
+        int j_intercambiada=0;
+        int IteraccionesSinMejora = 0;
 
         System.out.println("RECORRIDO INICIAL");
         imprimeRecorrido(estado);
@@ -47,8 +55,7 @@ public class Busqueda {
 
         //Iniciamos la búsqueda.  10001
         while(iteracciones!=5){
-            int i_intercambiada=0;
-            int j_intercambiada=0;
+
             System.out.println("ITERACION: " + iteracciones);
             vecino = (ArrayList<Integer>) estado.clone();
             for(int i=0;i<estado.size();i++){
@@ -58,6 +65,8 @@ public class Busqueda {
                          * y evaluamos su coste. Si es mejor lo almacenamos como
                          * mejor vecino. Al finalizar el bucle si el mejor vecino es mejor que estado,
                          * vecino pasa a ser estado */
+                        if(listaTabu.contieneProhibicion(i,j))
+                            break;
                         aux = (ArrayList<Integer>) estado.clone();
                         aux.set(i, estado.get(j));
                         aux.set(j, estado.get(i));
@@ -69,12 +78,23 @@ public class Busqueda {
                     }
                 }
             }
-            if(costeRecorrido(vecino)<costeRecorrido(estado)){
-                estado = (ArrayList<Integer>) vecino.clone();
-            }
+            estado = (ArrayList<Integer>) vecino.clone();
+            listaTabu.addProhibicion(i_intercambiada,j_intercambiada);
             System.out.println("\tINTERCAMBIO: (" + i_intercambiada + ", " + j_intercambiada + ")");
             imprimeRecorrido(estado);
             System.out.println("\tCOSTE (km): " + costeRecorrido(estado));
+
+            if(costeRecorrido(estado)< costeRecorrido(mejor)){
+                mejor = (ArrayList<Integer>) estado.clone();
+                IteraccionesSinMejora=0;
+            }
+            else{
+                IteraccionesSinMejora++;
+            }
+
+            System.out.println("\tITERACIONES SIN MEJORA: " + IteraccionesSinMejora);
+            System.out.println("\tLISTA TABU:");
+            listaTabu.imprime();
             System.out.println();
             iteracciones++;
         }

@@ -1,8 +1,10 @@
 
 /**
  * @autor Pablo García Fernández.
- * @file Parser.java
- * @objective procesar los archivos .txt pasados como argumentos (el de aleatorios y el de ciudades)
+ * @file Coordenadas.java
+ * @objective - Encapsulas las coordenadas de una ciudad.
+ *            - Pasar los grados a radianes.
+ *            - Calcular la distancia entre dos ciudades.
  */
 public class Coordenadas {
     public double x;
