@@ -11,8 +11,7 @@ import java.util.HashMap;
 public class Busqueda {
     private HashMap<Integer,Coordenadas> costes;
     private ArrayList<Integer> estado;    //mejor solucion
-    private ArrayList<Integer> vecino;
-    private int iteracción;
+    private ArrayList<Integer> vecino;    //mejor vecino
 
     /**
      * Para iniciar la búsqueda en una solucion dada.
@@ -22,7 +21,6 @@ public class Busqueda {
     public Busqueda(HashMap<Integer, Coordenadas> costes, ArrayList<Integer> estadoInicial) {
         this.costes = costes;
         this.estado = estadoInicial;
-        this.iteracción = 0;
         vecino = (ArrayList<Integer>) estado.clone();
 
     }
@@ -33,14 +31,53 @@ public class Busqueda {
      */
     public Busqueda(HashMap<Integer, Coordenadas> costes) {
         this.costes = costes;
-        this.iteracción = 0;
         estado = this.generaEstadoAleatorio();
         vecino = (ArrayList<Integer>) estado.clone();
     }
 
     public void buscar(){
-        imprimeEstado(estado);
-        System.out.println("\n\tCOSTE: " + costeRecorrido(this.estado));
+
+        int iteracciones=1;
+        ArrayList<Integer> aux;
+
+        System.out.println("RECORRIDO INICIAL");
+        imprimeRecorrido(estado);
+        System.out.println("\tCOSTE (km): " + costeRecorrido(estado));
+        System.out.println();
+
+        //Iniciamos la búsqueda.  10001
+        while(iteracciones!=5){
+            int i_intercambiada=0;
+            int j_intercambiada=0;
+            System.out.println("ITERACION: " + iteracciones);
+            vecino = (ArrayList<Integer>) estado.clone();
+            for(int i=0;i<estado.size();i++){
+                for(int j=0;j<estado.size();j++){
+                    if(i!=j && i>j){
+                        /** generamos vecino a partir de estado,
+                         * y evaluamos su coste. Si es mejor lo almacenamos como
+                         * mejor vecino. Al finalizar el bucle si el mejor vecino es mejor que estado,
+                         * vecino pasa a ser estado */
+                        aux = (ArrayList<Integer>) estado.clone();
+                        aux.set(i, estado.get(j));
+                        aux.set(j, estado.get(i));
+                        if(costeRecorrido((aux))<costeRecorrido(vecino)){
+                            vecino = (ArrayList<Integer>) aux.clone();
+                            i_intercambiada = i;
+                            j_intercambiada = j;
+                        }
+                    }
+                }
+            }
+            if(costeRecorrido(vecino)<costeRecorrido(estado)){
+                estado = (ArrayList<Integer>) vecino.clone();
+            }
+            System.out.println("\tINTERCAMBIO: (" + i_intercambiada + ", " + j_intercambiada + ")");
+            imprimeRecorrido(estado);
+            System.out.println("\tCOSTE (km): " + costeRecorrido(estado));
+            System.out.println();
+            iteracciones++;
+        }
     }
 
     /**
@@ -84,8 +121,8 @@ public class Busqueda {
         return((int)Math.ceil(coste));
     }
     
-    public void imprimeEstado(ArrayList<Integer> estado){
-        System.out.print("RECORRIDO: ");
+    public void imprimeRecorrido(ArrayList<Integer> estado){
+        System.out.print("\tRECORRIDO: ");
         for(Integer x: estado) {
             System.out.print(x + " ");
         }
