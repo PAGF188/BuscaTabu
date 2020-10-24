@@ -54,7 +54,7 @@ public class Busqueda {
         System.out.println();
 
         //Iniciamos la búsqueda.  10001
-        while(iteracciones!=5){
+        while(iteracciones!=100){
 
             System.out.println("ITERACION: " + iteracciones);
             vecino = (ArrayList<Integer>) estado.clone();
