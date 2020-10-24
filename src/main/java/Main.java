@@ -8,12 +8,13 @@ import java.util.HashMap;
  */
 public class Main {
     public static void main(String[] args) {
+        //Cuando queremos que el estado inicial sea aleatorio
         if(args.length==1){
             HashMap<Integer,Coordenadas> ciudades = Parser.parsearCiudades(args[0]);
             Busqueda b = new Busqueda(ciudades);
             b.buscar();
-            b.imprimeEstado();
         }
+        //cuando le pasamos nosotros el estado inicial.
         else if(args.length==2){
             HashMap<Integer,Coordenadas> ciudades = Parser.parsearCiudades(args[0]);
             ArrayList<Integer> estadoInicial = Parser.parsearAleatorios(args[1]);
@@ -25,3 +26,10 @@ public class Main {
         }
     }
 }
+
+
+/**
+ * for (Map.Entry<Integer, Coordenadas> entry : ciudades.entrySet()) {
+ *                 System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
+ *             }
+ */
