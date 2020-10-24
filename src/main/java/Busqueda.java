@@ -40,7 +40,6 @@ public class Busqueda {
     }
 
     public void buscar(){
-
         int iteracciones=1;
         ArrayList<Integer> aux;
         ListaTabu listaTabu = new ListaTabu();
@@ -54,23 +53,29 @@ public class Busqueda {
         System.out.println();
 
         //Iniciamos la búsqueda.  10001
-        while(iteracciones!=100){
+        while(iteracciones!=50){
 
             System.out.println("ITERACION: " + iteracciones);
-            vecino = (ArrayList<Integer>) estado.clone();
+            vecino = null;
             for(int i=0;i<estado.size();i++){
                 for(int j=0;j<estado.size();j++){
                     if(i!=j && i>j){
+                        System.out.println(i +" "+j);
                         /** generamos vecino a partir de estado,
                          * y evaluamos su coste. Si es mejor lo almacenamos como
                          * mejor vecino. Al finalizar el bucle si el mejor vecino es mejor que estado,
                          * vecino pasa a ser estado */
-                        if(listaTabu.contieneProhibicion(i,j))
+                        if(listaTabu.contieneProhibicion(i,j)) {
                             break;
+                        }
                         aux = (ArrayList<Integer>) estado.clone();
                         aux.set(i, estado.get(j));
                         aux.set(j, estado.get(i));
-                        if(costeRecorrido((aux))<costeRecorrido(vecino)){
+                        if(i==74 && j==64){
+                            System.out.println(vecino + "\n");
+                            System.out.println(aux + "\n");
+                        }
+                        if(vecino == null || costeRecorrido((aux))<costeRecorrido(vecino)){
                             vecino = (ArrayList<Integer>) aux.clone();
                             i_intercambiada = i;
                             j_intercambiada = j;
