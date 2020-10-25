@@ -46,4 +46,9 @@ public class ListaTabu {
             System.out.println("\t"+t.i + " " + t.j);
         }
     }
+
+    public void reiniciarTabla(){
+        this.tuplas=null;
+        this.tuplas = new LinkedList<>();
+    }
 }

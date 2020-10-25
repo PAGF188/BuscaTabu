@@ -8,6 +8,7 @@ import java.util.HashMap;
  *
  */
 public class Busqueda {
+    private final int MAX = 100;
     private HashMap<Integer,Coordenadas> costes;
     private ArrayList<Integer> mejor;     //mejor solucion
     private ArrayList<Integer> estado;    //solucion actual (de la cual vamos a estudiar su contorna)
@@ -15,6 +16,7 @@ public class Busqueda {
     private int i_intercambiada;
     private int j_intercambiada;
     private int iteracciones;
+    private int reinicios;
 
     /**
      * Para iniciar la búsqueda en una solucion dada.
@@ -29,6 +31,7 @@ public class Busqueda {
         i_intercambiada=-1;
         j_intercambiada=-1;
         iteracciones=1;
+        reinicios=0;
     }
 
     /**
@@ -43,7 +46,7 @@ public class Busqueda {
         i_intercambiada=-1;
         j_intercambiada=-1;
         iteracciones=1;
-
+        reinicios=1;
     }
 
     public void buscar(){
@@ -56,11 +59,24 @@ public class Busqueda {
         System.out.println();
 
         //Iniciamos la búsqueda.  10001
-        while(iteracciones!=100){
+        while(iteracciones!=10001){
+
+            //Reinicio
+            if(IteraccionesSinMejora==MAX){
+                listaTabu.reiniciarTabla();
+                estado = (ArrayList<Integer>) mejor.clone();
+                reinicios++;
+                IteraccionesSinMejora = 0;
+                System.out.println("***************\n" +
+                        "REINICIO: "+ reinicios +"\n" +
+                        "***************\n");
+            }
 
             System.out.println("ITERACION: " + iteracciones);
 
+            //Nuevo estado pasa a ser el mejor de los vecinos.
             estado = (ArrayList<Integer>) exploraContorna(estado).clone();
+            //añadimos el intercambio realizado.
             listaTabu.addProhibicion(i_intercambiada,j_intercambiada);
 
             System.out.println("\tINTERCAMBIO: (" + i_intercambiada + ", " + j_intercambiada + ")");
