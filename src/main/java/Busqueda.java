@@ -56,7 +56,7 @@ public class Busqueda {
         System.out.println();
 
         //Iniciamos la búsqueda.  10001
-        while(iteracciones!=50){
+        while(iteracciones!=100){
 
             System.out.println("ITERACION: " + iteracciones);
 
@@ -83,7 +83,11 @@ public class Busqueda {
         }
     }
 
-    //Exploramos la contorna de solucion y devolvemos su mejor vecino.
+    /**
+     * exploramos la contorna de solución y devolvemos su mejor vecino
+     * @param solucion estado a generar vecindario
+     * @return, mejor vecino (el de menor coste)
+     */
     private ArrayList<Integer> exploraContorna(ArrayList<Integer> solucion){
         ArrayList<Integer> aux;   //va tomando el valor de los distintos vecinos
         ArrayList<Integer> vecino = null;  //almacena el mejor vecino
