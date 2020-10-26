@@ -102,7 +102,7 @@ public class Busqueda {
             iteracciones++;
         }
 
-        System.out.println("MEJOR SOLUCION");
+        System.out.println("\nMEJOR SOLUCION");
         imprimeRecorrido(mejor);
         System.out.println("\tCOSTE (km): " + costeRecorrido(mejor));
         System.out.println("\tITERACION: " + iteracionMejor);
