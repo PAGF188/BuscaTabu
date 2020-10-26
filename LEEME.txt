@@ -3,3 +3,5 @@ COMPILACIÓN:
 
 EJECUTAR:
 ./java -jar BuscaTabu-1.0.jar <coordenadas.txt> [aleatorios.txt]
+
+Nota: En mi máquina la ejecución tarda sobre 6 minutos.
