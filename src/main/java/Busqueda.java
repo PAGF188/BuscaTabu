@@ -11,6 +11,7 @@ public class Busqueda {
     private final int MAX = 100;
     private HashMap<Integer,Coordenadas> costes;
     private ArrayList<Integer> mejor;     //mejor solucion
+    private int iteracionMejor;
     private ArrayList<Integer> estado;    //solucion actual (de la cual vamos a estudiar su contorna)
     private ListaTabu listaTabu;
     private int i_intercambiada;
@@ -32,6 +33,7 @@ public class Busqueda {
         j_intercambiada=-1;
         iteracciones=1;
         reinicios=0;
+        iteracionMejor=0;
     }
 
     /**
@@ -47,6 +49,7 @@ public class Busqueda {
         j_intercambiada=-1;
         iteracciones=1;
         reinicios=1;
+        iteracionMejor=0;
     }
 
     public void buscar(){
@@ -86,6 +89,7 @@ public class Busqueda {
             if(costeRecorrido(estado) < costeRecorrido(mejor)){
                 mejor = (ArrayList<Integer>) estado.clone();
                 IteraccionesSinMejora=0;
+                iteracionMejor = iteracciones;
             }
             else{
                 IteraccionesSinMejora++;
@@ -97,6 +101,12 @@ public class Busqueda {
             System.out.println();
             iteracciones++;
         }
+
+        System.out.println("MEJOR SOLUCION");
+        imprimeRecorrido(mejor);
+        System.out.println("\tCOSTE (km): " + costeRecorrido(mejor));
+        System.out.println("\tITERACION: " + iteracionMejor);
+
     }
 
     /**
