@@ -1,0 +1,5 @@
+COMPILACIÓN:
+./gradlew build busqueda    (queda almacenado el .jar en /build/libs)
+
+EJECUTAR:
+./java -jar BuscaTabu-1.0.jar <coordenadas.txt> [aleatorios.txt]
