@@ -1,7 +1,10 @@
 COMPILACIÓN:
-./gradlew build busqueda    (queda almacenado el .jar en /build/libs)
+./gradlew build busqueda    (el .jar queda almacenado en /build/libs/)
 
 EJECUTAR:
 ./java -jar BuscaTabu-1.0.jar <coordenadas.txt> [aleatorios.txt]
 
-Nota: En mi máquina la ejecución tarda sobre 6 minutos.
+Nota1: En mi máquina la ejecución tarda sobre 10 minutos.
+
+Nota2: Al comparar la traza de referencia con la traza sacada por la ejecución de mi programa 
+       hay una única diferencia de un salto de línea al imprimir la mejor solución.

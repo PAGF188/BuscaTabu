@@ -78,7 +78,7 @@ public class Busqueda {
             System.out.println("ITERACION: " + iteracciones);
 
             //Nuevo estado pasa a ser el mejor de los vecinos.
-            estado = (ArrayList<Integer>) exploraContorna(estado).clone();
+            estado = exploraContorna(estado);
             //añadimos el intercambio realizado.
             listaTabu.addProhibicion(i_intercambiada,j_intercambiada);
 
@@ -102,7 +102,7 @@ public class Busqueda {
             iteracciones++;
         }
 
-        System.out.println("\nMEJOR SOLUCION");
+        System.out.println("\nMEJOR SOLUCION:");
         imprimeRecorrido(mejor);
         System.out.println("\tCOSTE (km): " + costeRecorrido(mejor));
         System.out.println("\tITERACION: " + iteracionMejor);
